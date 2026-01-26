@@ -22,14 +22,15 @@ def load_historical_data(csv_path: str = "ml_trading_signals.csv",
     Load historical trading data from multiple sources.
     Returns DataFrame with [Open, High, Low, Close, Volume, Signal] columns.
     """
-    try:
-        df = get_pipeline_data(ticker)
-        if df is not None and not df.empty:
-            return df
-    except Exception as e:
-        print(f"⚠️ Pipeline fetch failed for {ticker}: {e}")
-
     should_use_pipeline = use_pipeline if use_pipeline is not None else (DATA_SOURCE == 'pipeline')
+    
+    if should_use_pipeline and PIPELINE_AVAILABLE:
+        try:
+            df = get_pipeline_data(ticker)
+            if df is not None and not df.empty:
+                return df
+        except Exception as e:
+            print(f"⚠️ Pipeline fetch failed for {ticker}: {e}")
     df = pd.DataFrame()
 
     # Helper for path
@@ -160,13 +161,49 @@ def generate_signals_from_indicators(df: pd.DataFrame) -> pd.Series:
     close = df.get('Close', df.get('close', None))
     sma_50 = df.get('SMA_50', df.get('ma50', None))
     
-    if rsi is not None and macd is not None and close is not None and sma_50 is not None:
-        # Buy signals
-        buy_condition = (rsi < 30) | ((macd > 0) & (close > sma_50))
-        signals[buy_condition] = 1
+    if rsi is None or macd is None or close is None or sma_50 is None:
+        # Calculate missing indicators
+        close = df['Close']
+        delta = close.diff()
+        gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+        loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+        rs = gain / loss
+        rsi = 100 - (100 / (1 + rs))
         
-        # Sell signals
-        sell_condition = (rsi > 70) | ((macd < 0) & (close < sma_50))
-        signals[sell_condition] = -1
+        ema12 = close.ewm(span=12, adjust=False).mean()
+        ema26 = close.ewm(span=26, adjust=False).mean()
+        macd = ema12 - ema26
+        
+        sma_50 = close.rolling(window=50).mean()
+
+    # Buy signals
+    buy_condition = (rsi < 30) | ((macd > 0) & (close > sma_50))
+    signals[buy_condition] = 1
+    
+    # Sell signals
+    sell_condition = (rsi > 70) | ((macd < 0) & (close < sma_50))
+    signals[sell_condition] = -1
     
     return signals
+
+def load_from_csv(file_path: str, ticker: str) -> pd.DataFrame:
+    """
+    Load historical data from a CSV file.
+
+    Args:
+        file_path: Path to the CSV file.
+        ticker: Stock ticker symbol.
+
+    Returns:
+        DataFrame with historical data.
+    """
+    try:
+        df = pd.read_csv(file_path)
+        df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+        df.set_index('Date', inplace=True)
+        df.sort_index(inplace=True)
+        print(f"✅ Successfully loaded data for {ticker} from {file_path}")
+        return df
+    except Exception as e:
+        print(f"⚠️ Failed to load data for {ticker} from {file_path}: {e}")
+        return pd.DataFrame()

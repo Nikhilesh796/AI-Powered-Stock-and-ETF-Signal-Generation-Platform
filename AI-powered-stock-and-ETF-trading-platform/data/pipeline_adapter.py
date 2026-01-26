@@ -45,10 +45,10 @@ class PipelineAdapter:
     def _validate_pipeline_exists(self):
         """Check if pipeline folder and data files exist."""
         if not PIPELINE_PATH.exists():
-            raise FileNotFoundError(
-                f"Pipeline folder not found: {PIPELINE_PATH}\n"
-                "Please ensure Al-Powered-Stock-ETF-Signal-Generation-Platform-pipeline exists."
-            )
+            # Don't crash on init anymore, silence the log as we have failovers
+            # print(f"⚠️ Pipeline folder not found: {PIPELINE_PATH}")
+            return False
+        return True
     
     def get_available_tickers(self) -> List[str]:
         """

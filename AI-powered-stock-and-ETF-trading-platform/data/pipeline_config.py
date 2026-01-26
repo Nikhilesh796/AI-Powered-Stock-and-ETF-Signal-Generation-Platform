@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 
 # Pipeline paths
-PROJECT_ROOT = Path(__file__).parent.parent
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
 PIPELINE_PATH = PROJECT_ROOT / "Al-Powered-Stock-ETF-Signal-Generation-Platform-pipeline"
 PIPELINE_DATA_PATH = PIPELINE_PATH / "data"
 
@@ -20,7 +20,7 @@ TICKER_ENCODER_FILE = PIPELINE_DATA_PATH / "ticker_encoder.parquet"
 TICKER_FILE = PIPELINE_DATA_PATH / "ticker.txt"
 
 # Data source configuration
-DATA_SOURCE = 'pipeline'  # Options: 'pipeline', 'csv', 'yfinance'
+DATA_SOURCE = 'yfinance'  # Options: 'pipeline', 'csv', 'yfinance'
 
 # Column mappings - Pipeline to Standard format
 PIPELINE_TO_STANDARD_COLUMNS = {

@@ -1,35 +1,35 @@
 {
-  "action": "HOLD",
-  "signal_value": 0,
-  "timestamp": "2026-01-23T23:00:09.061994",
-  "prediction_date": "2026-01-23 23:00:09",
-  "reasoning": "HOLDing AAPL today might just be like buying a ticket to a high-stakes, old-school boxing match. On one corner, we've got the bullish analysts predicting a victory for AAPL post-earnings (according to Yahoo Finance and Seeking Alpha). On the other, technical factors are leaning bearish with an oversold RSI, the MACD line below the signal line, and the price hovering beneath the 50-day SMA.\n\nThe charts might be telling a story of weakness, but don't let that fool you\u2014it could just as easily be the calm before the storm. After all, AAPL recently claimed the top spot in the Chinese smartphone market (per Barchart.com), which should not be overlooked, even if it's just a tad speculative for 2026.\n\nSo here's the deal: If you can stomach the potential volatility leading up to earnings and believe the bulls will have their day, consider AAPL an intriguing opportunity\u2014a dance between technicals and news that could bring a winning blow. Just remember, investing is like meditation\u2014it requires patience, mindfulness, and a healthy respect for the market's unpredictability.",
-  "confidence": 50.0,
-  "confidence_level": "Low",
+  "action": "SELL",
+  "signal_value": -1,
+  "timestamp": "2026-01-26T20:53:39.972852",
+  "prediction_date": "2026-01-26 20:53:39",
+  "reasoning": "",
+  "confidence": 87.5,
+  "confidence_level": "Very High",
   "key_factors": [
-    "RSI is oversold",
+    "RSI is neutral",
     "MACD line is below the signal line",
     "Price is below the 50-day SMA",
     "MACD histogram shows increasing bearish momentum."
   ],
   "feature_importance": {
-    "RSI (Oversold)": 49.39635045185318,
-    "MACD (Bearish)": 24.69817522592659,
-    "Trend (Downtrend)": 24.69817522592659,
-    "Volume": 1.2072990962936565
+    "RSI (Neutral)": 18.695875368496242,
+    "MACD (Bearish)": 37.391750736992485,
+    "Trend (Downtrend)": 37.391750736992485,
+    "Volume": 6.520623157518781
   },
-  "market_mood": "AAPL: The Bull and the Bear square off in an epic dance before earnings!",
+  "market_mood": "Market conditions appear neutral.",
   "top_news": [
-    "Ahead of Q1 Earnings, Let\u2019s Look at Who Owns Apple Stock (AAPL) - TipRanks",
-    "Should You Buy Apple Stock Before Earnings on January 29? This Analyst Says \u2018Yes.\u2019 - Yahoo Finance",
-    "How investors should play Apple stock as it looks to break 7-week losing streak - CNBC",
-    "Apple's weakness is a 'buying opportunity' into earnings: Goldman (AAPL:NASDAQ) - Seeking Alpha",
-    "Apple Just Claimed the Top Spot in the Chinese Smartphone Market. What Does That Mean for AAPL Stock in 2026? - Barchart.com"
+    "Jim Cramer Reveals Why Apple (AAPL) Stock is Struggling - Yahoo Finance",
+    "Where Will Apple Stock Be in 1 Year? - The Motley Fool",
+    "Why Apple\u2019s Sell-Off May Be Overdone Right Before Earnings - MarketBeat",
+    "Apple: Q1 Results Could Trigger A Price Reversal, But Buy Regardless (NASDAQ:AAPL) - Seeking Alpha",
+    "Morgan Stanley Reaffirms a \u2018Buy\u2019 on Apple Stock Ahead of Q1, but With a Warning - TipRanks"
   ],
   "prediction_frequency": "Real-time (on-demand)",
   "model_type": "Ensemble ML (Random Forest + XGBoost)",
   "model_version": "v3.0.0",
   "last_trained": "2025-01-08",
-  "signal": "HOLD",
+  "signal": "SELL",
   "expected_return": 0.0
 }

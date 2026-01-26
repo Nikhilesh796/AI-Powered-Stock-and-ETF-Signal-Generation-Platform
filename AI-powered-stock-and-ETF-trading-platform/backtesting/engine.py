@@ -18,6 +18,23 @@ class BacktestEngine:
         return val
 
 
+    def _generate_signals(self):
+        """
+        Generate trading signals based on a simple moving average crossover strategy.
+        """
+        if "Signal" not in self.df.columns:
+            print("⚠️ Signal column missing. Generating signals using SMA crossover...")
+            short_window = 20
+            long_window = 50
+
+            self.df['SMA_Short'] = self.df['Close'].rolling(window=short_window).mean()
+            self.df['SMA_Long'] = self.df['Close'].rolling(window=long_window).mean()
+
+            self.df['Signal'] = 0
+            self.df.loc[self.df['SMA_Short'] > self.df['SMA_Long'], 'Signal'] = 1
+            self.df.loc[self.df['SMA_Short'] <= self.df['SMA_Long'], 'Signal'] = -1
+
+
     # ---------------- MARKET ----------------
     def run_market(self):
         returns = self.df["Close"].pct_change().dropna()
@@ -45,6 +62,7 @@ class BacktestEngine:
 
     # ---------------- ML STRATEGY ----------------
     def run_ml(self):
+        self._generate_signals()  # Ensure signals are generated
         entries = self.df["Signal"] == 1
         exits = self.df["Signal"] == -1
 
@@ -165,7 +183,7 @@ class BacktestEngine:
         # 1. Try Fetching from Signal API
         try:
             url = "http://localhost:8000/api/v1/ml/signal/historical"
-            response = requests.post(url, json={"ticker": ticker}, timeout=2) # Short timeout
+            response = requests.post(url, json={"ticker": ticker}, timeout=500) # Short timeout
             
             if response.status_code == 200:
                 data = response.json()

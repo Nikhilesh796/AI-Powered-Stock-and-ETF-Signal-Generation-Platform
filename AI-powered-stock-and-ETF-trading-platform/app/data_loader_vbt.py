@@ -7,7 +7,7 @@ Fetches historical data with ML signals from ML Service API
 import requests
 import pandas as pd
 
-ML_BASE_URL = "http://127.0.0.1:8001"
+ML_BASE_URL = "http://127.0.0.1:8000"
 HISTORICAL_ENDPOINT = "/api/v1/ml/signal/historical"
 
 

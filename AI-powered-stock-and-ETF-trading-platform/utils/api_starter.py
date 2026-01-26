@@ -15,7 +15,7 @@ import os
 # Global process handle
 api_process = None
 
-def is_api_running(port=8005, timeout=1):
+def is_api_running(port=8000, timeout=1):
     """Check if API is already running"""
     try:
         response = requests.get(f"http://127.0.0.1:{port}/health", timeout=timeout)
@@ -23,7 +23,7 @@ def is_api_running(port=8005, timeout=1):
     except:
         return False
 
-def find_available_port(start_port=8005, max_attempts=10):
+def find_available_port(start_port=8000, max_attempts=10):
     """Find an available port"""
     import socket
     for port in range(start_port, start_port + max_attempts):
@@ -41,7 +41,7 @@ def start_api_background():
     
     # Check if API is already running
     if is_api_running():
-        print("✅ API server already running on port 8005")
+        print("✅ API server already running on port 8000")
         return True
     
     print("🚀 Starting API server in background...")

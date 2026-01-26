@@ -3,7 +3,7 @@ Write-Host "   AI Stock Platform Startup (Manual API)"
 Write-Host "----------------------------------------------------------------"
 
 # 1. Activate Venv
-$venvPath = ".venv\Scripts\Activate.ps1"
+$venvPath = "venv\Scripts\Activate.ps1"
 if (Test-Path $venvPath) {
     Write-Host "Activating venv..."
     & $venvPath
@@ -39,5 +39,6 @@ Write-Host "   - Signals API:    Port 8000"
 Write-Host "   - Alerts API:     Port 8001"
 Write-Host "   - Backtesting API: Port 8002"
 
+$env:PYTHONPATH = "C:/infosys1/AI-powered-stock-and-ETF-trading-platform;$env:PYTHONPATH"
 Write-Host "Starting Dashboard..."
-.\venv\Scripts\python.exe -m streamlit run "C:\infosys1\AI-powered-stock-and-ETF-trading-platform\0_Overview.py"
+& C:/infosys1/AI-powered-stock-and-ETF-trading-platform/venv/Scripts/python.exe -m streamlit run "C:\infosys1\AI-powered-stock-and-ETF-trading-platform\0_Overview.py"
