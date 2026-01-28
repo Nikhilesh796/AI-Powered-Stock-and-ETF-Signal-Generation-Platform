@@ -148,7 +148,9 @@ Open your terminal (Command Prompt, PowerShell, or Bash) and run the following c
 
 
 
-ollama pull mistral(run this once,i.e the first time)
+ollama pull mistral
+
+(run this once,i.e the first time)
 
 3. Start the Ollama Server
 Ensure the Ollama application is running. You can verify this by checking your system tray (Windows/Mac) or by running:
