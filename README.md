@@ -14,8 +14,8 @@ alerts, and a resilient microservices architecture.
 
 ## ✅ Windows (Recommended)
 
-``` powershell
-./run_project.ps1
+```powershell
+streamlit run 0_Overview.py
 ```
 
 This script automatically:
